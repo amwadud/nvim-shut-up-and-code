@@ -103,6 +103,7 @@ return {
         event = 'BufEnter',
         config = true,
     },
+    { 'tpope/vim-repeat' },
     {
         'monaqa/dial.nvim',
         keys = {

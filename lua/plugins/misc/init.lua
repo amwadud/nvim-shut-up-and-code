@@ -105,4 +105,9 @@ return {
         },
         opts = {},
     },
+    {
+        'folke/persistence.nvim',
+        event = 'BufReadPre',
+        opts = {},
+    },
 }

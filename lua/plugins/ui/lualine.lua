@@ -24,21 +24,21 @@ return {
             local function lsp_name()
                 local clients = vim.lsp.get_clients({ bufnr = 0 })
                 if #clients == 0 then return '' end
-                return table.concat(vim.tbl_map(function(c) return c.name end, clients), ',')
+                return '󰒋 ' .. table.concat(vim.tbl_map(function(c) return c.name end, clients), ',')
             end
 
             local function formatter_name()
                 local ok, conform = pcall(require, 'conform')
                 local f = ok and conform.list_formatters(0) or {}
                 if #f == 0 then return '' end
-                return table.concat(vim.tbl_map(function(x) return x.name end, f), ',')
+                return '󰉿 ' .. table.concat(vim.tbl_map(function(x) return x.name end, f), ',')
             end
 
             local function linter_name()
                 local ok, lint = pcall(require, 'lint')
                 local l = ok and (lint.linters_by_ft[vim.bo.filetype] or {}) or {}
                 if #l == 0 then return '' end
-                return table.concat(l, ',')
+                return '󱉶 ' .. table.concat(l, ',')
             end
 
             return {
@@ -55,13 +55,12 @@ return {
                 sections = {
                     lualine_a = {},
                     lualine_b = { { 'branch', icon = '', color = { fg = c.comment, bg = c.bg } } },
-                    lualine_c = { { 'filename', path = 1, color = { fg = c.fg, bg = c.bg }, symbols = { modified = ' ●', readonly = ' ' } } },
+                    lualine_c = { { 'filename', path = 1, color = { fg = c.fg, bg = c.bg }, symbols = { modified = ' +', readonly = ' -' } } },
                     lualine_x = {
                         { lsp_name, color = { fg = c.cyan, bg = c.bg } },
                         { formatter_name, color = { fg = c.comment, bg = c.bg } },
                         { linter_name, color = { fg = c.warning, bg = c.bg } },
                         { 'diagnostics', color = { fg = c.error, bg = c.bg }, symbols = { error = 'E', warn = 'W', info = 'I', hint = 'H' } },
-                        { 'filetype', colored = false, icon_only = false, color = { fg = c.comment, bg = c.bg } },
                     },
                     lualine_y = {},
                     lualine_z = {},
