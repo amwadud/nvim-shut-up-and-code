@@ -23,16 +23,12 @@ return {
                 },
                 documentation = {
                     auto_show = true,
-                    window = {
-                        border = 'rounded',
-                    },
+                    window = { border = 'rounded' },
                 },
             },
             signature = {
                 enabled = true,
-                window = {
-                    border = 'rounded',
-                },
+                window = { border = 'rounded' },
             },
             sources = {
                 default = { 'lsp', 'path', 'snippets', 'buffer' },
@@ -63,5 +59,48 @@ return {
                 },
             },
         },
+    },
+    {
+        'stevearc/conform.nvim',
+        lazy = true,
+        event = 'VeryLazy',
+        config = function()
+            require('conform').setup({
+                formatters_by_ft = {
+                    lua = { 'stylua' },
+                    python = { 'ruff_format' },
+                    sh = { 'shfmt' },
+                    c = { 'c_formatter_42' },
+                },
+            })
+        end,
+    },
+    {
+        'windwp/nvim-autopairs',
+        event = 'InsertEnter',
+        config = true,
+    },
+    {
+        'nvim-mini/mini.surround',
+        version = '*',
+        config = function()
+            require('mini.surround').setup()
+        end,
+    },
+    {
+        'MagicDuck/grug-far.nvim',
+        config = function()
+            require('grug-far').setup({})
+        end,
+    },
+    {
+        'folke/trouble.nvim',
+        cmd = 'Trouble',
+        opts = {},
+    },
+    {
+        'numToStr/Comment.nvim',
+        event = 'BufEnter',
+        config = true,
     },
 }

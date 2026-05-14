@@ -1,9 +1,29 @@
 return {
     {
+        'nvim-telescope/telescope.nvim',
+        cmd = 'Telescope',
+        dependencies = {
+            'nvim-lua/plenary.nvim',
+            {
+                'nvim-telescope/telescope-fzf-native.nvim',
+                build = 'make',
+            },
+        },
+        opts = {
+            defaults = {
+                selection_caret = ' ',
+                sorting_strategy = 'ascending',
+                layout_config = { prompt_position = 'top' },
+                prompt_prefix = '   ',
+                mappings = { i = { ['<C-j>'] = 'move_selection_next', ['<C-k>'] = 'move_selection_previous' } },
+            },
+        },
+    },
+    {
         'rmagatti/goto-preview',
         dependencies = { 'rmagatti/logger.nvim' },
         event = 'BufEnter',
-        config = true, -- necessary as per https://github.com/rmagatti/goto-preview/issues/88
+        config = true,
     },
     {
         'chrisgrieser/nvim-spider',
@@ -20,29 +40,21 @@ return {
     },
     {
         'stevearc/oil.nvim',
-        lazy = false,
         config = function()
             require('oil').setup()
         end,
         keys = { { '-', '<CMD>Oil<CR>' } },
     },
-    -- Oil related:
     {
-        {
-            'JezerM/oil-lsp-diagnostics.nvim',
-            dependencies = { 'stevearc/oil.nvim' },
-            opts = {},
-        },
-        {
-            'benomahony/oil-git.nvim',
-            dependencies = { 'stevearc/oil.nvim' },
-            -- No opts or config needed! Works automatically
-        },
+        'JezerM/oil-lsp-diagnostics.nvim',
+        event = 'VeryLazy',
+        dependencies = { 'stevearc/oil.nvim' },
+        opts = {},
     },
     {
-        'numToStr/Comment.nvim',
-        event = 'BufEnter',
-        config = true,
+        'benomahony/oil-git.nvim',
+        event = 'VeryLazy',
+        dependencies = { 'stevearc/oil.nvim' },
     },
     {
         'ggandor/leap.nvim',
@@ -101,12 +113,6 @@ return {
         cmd = 'Glance',
     },
     {
-        'rmagatti/goto-preview',
-        dependencies = { 'rmagatti/logger.nvim' },
-        event = 'BufEnter',
-        config = true, -- necessary as per https://github.com/rmagatti/goto-preview/issues/88
-    },
-    {
         'ya2s/nvim-cursorline',
         opts = {
             disable_filetypes = { 'oil' },
@@ -120,17 +126,14 @@ return {
             local harpoon = require('harpoon')
             harpoon:setup()
 
-            -- Add current file
             vim.keymap.set('n', '<leader>a', function()
                 harpoon:list():add()
             end)
 
-            -- Open menu
             vim.keymap.set('n', '<leader>e', function()
                 harpoon.ui:toggle_quick_menu(harpoon:list())
             end)
 
-            -- Jump to slot 1-4
             vim.keymap.set('n', '<leader>1', function()
                 harpoon:list():select(1)
             end)
@@ -150,5 +153,19 @@ return {
         config = function()
             require('quicksearch').setup()
         end,
+    },
+    {
+        'christoomey/vim-tmux-navigator',
+        cmd = {
+            'TmuxNavigateLeft', 'TmuxNavigateDown', 'TmuxNavigateUp',
+            'TmuxNavigateRight', 'TmuxNavigatePrevious', 'TmuxNavigatorProcessList',
+        },
+        keys = {
+            { '<c-h>', '<cmd><C-U>TmuxNavigateLeft<cr>' },
+            { '<c-j>', '<cmd><C-U>TmuxNavigateDown<cr>' },
+            { '<c-k>', '<cmd><C-U>TmuxNavigateUp<cr>' },
+            { '<c-l>', '<cmd><C-U>TmuxNavigateRight<cr>' },
+            { '<c-\\>', '<cmd><C-U>TmuxNavigatePrevious<cr>' },
+        },
     },
 }

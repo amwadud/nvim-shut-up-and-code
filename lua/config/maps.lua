@@ -65,5 +65,5 @@ map('n', 'gY', '<CMD>Glance type_definitions<CR>')
 map('n', 'gM', '<CMD>Glance implementations<CR>')
 
 -- Go to preview
-map("n", "gp", "<cmd>lua require('goto-preview').goto_preview_definition()<CR>", {noremap=true})
+map('n', 'gp', '<cmd>lua require(\'goto-preview\').goto_preview_definition()<CR>', { desc = 'Preview definition' })
 

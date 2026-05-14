@@ -13,20 +13,13 @@ vim.opt.shortmess:append('c')
 vim.opt.list = true
 vim.opt.listchars = {
     space = '·',
-    tab = '↦ ', -- Other suitible characters: │
+    tab = '↦ ',
     eol = '↲',
     extends = '»',
     precedes = '«',
     nbsp = '␣',
     trail = '›',
 }
-
---[[ vim.opt.listchars = {
-    tab = '│ ',
-    extends = '»',
-    precedes = '«',
-    trail = '·',
-} ]]
 
 vim.opt.fillchars = {
     eob = ' ',
@@ -64,7 +57,7 @@ vim.o.swapfile = false
 vim.o.backup = false
 
 -- Clipboard & Spell
--- FIXME: Something is wrong about clipboard, maby because of not defining $WAYLAND_DISPLAY
+-- FIXME: Clipboard may not work if $WAYLAND_DISPLAY is undefined
 vim.g.clipboard = {
     name = 'wl-clipboard',
     copy = {
