@@ -159,7 +159,7 @@ return {
                 component_separators = '',
                 section_separators = '',
                 -- disabled_filetypes = { statusline = { 'oil', 'dashboard', '' } },
-                disabled_filetypes = { 'oil', 'dashboard', '' },
+                disabled_filetypes = { 'dashboard', 'oil', '' },
             },
             sections = {
                 -- LEFT: where you are
